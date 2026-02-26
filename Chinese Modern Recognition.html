@@ -1,0 +1,163 @@
+<!-- Frontside -->
+<div class="card-wrapper">
+    <div class="header-row">
+        <div class="deck-display"></div>
+        <div class="tags-display">{{#Tags}}{{Tags}}{{/Tags}}</div>
+    </div>
+
+    <div class="info-card">
+        <div class="chinese-display bold-text">{{Hanzi}}</div>
+    </div>
+</div>
+
+<script>
+    // Clean up Deck name: Replace :: with ›
+    (function () {
+        var deckName = "{{Deck}}";
+        var cleanName = deckName.replace(/::/g, " › ");
+        document.querySelector(".deck-display").innerHTML = cleanName;
+    })();
+</script>
+
+<!-- Backside -->
+
+<div class="card-wrapper">
+    <div class="header-row">
+        <div class="deck-display"></div>
+        <div class="tags-display">{{#Tags}}{{Tags}}{{/Tags}}</div>
+    </div>
+
+    <div class="info-card">
+        <div class="chinese-display">{{Color}}</div>
+        <div class="phonetic-reading">{{Pinyin}}</div>
+        <div class="primary-meaning">{{English}}</div>
+
+        <div class="details-grid">
+            {{#Simplified}}
+            <div class="grid-row">
+                <span class="details-label">Simplified:</span> {{Simplified}}
+            </div>
+            {{/Simplified}} {{#Traditional}}
+            <div class="grid-row">
+                <span class="details-label">Traditional:</span> {{Traditional}}
+            </div>
+            {{/Traditional}} {{#Classifier}}
+            <div class="grid-row">
+                <span class="details-label">Classifier:</span> {{Classifier}}
+            </div>
+            {{/Classifier}} {{#Also Written}}
+            <div class="grid-row">
+                <span class="details-label">Also written:</span> {{Also
+                Written}}
+            </div>
+            {{/Also Written}}
+        </div>
+    </div>
+
+    {{#Notes}}
+    <div class="notes-card">
+        <div class="section-label" style="margin-bottom: 8px">Notes</div>
+        <div class="notes-content">{{Notes}}</div>
+    </div>
+    {{/Notes}} {{#Usage}}
+    <details class="example-sentence">
+        <summary class="section-label">Show Example Sentences</summary>
+        <div class="example-content">{{Usage}}</div>
+    </details>
+    {{/Usage}}
+
+    <div id="strokeCard" class="stroke-order-card" style="display: none">
+        <div class="section-label">Stroke Order</div>
+        <div id="target" class="stroke-row"></div>
+    </div>
+
+    <div class="audio-player">{{Sound}}</div>
+
+    <div class="external-links">
+        <a
+            href="http://www.mdbg.net/chinese/dictionary?page=worddict&wdrst=0&wdqb={{text:Hanzi}}"
+            >MDBG</a
+        >
+        <a
+            href="http://zhidao.baidu.com/q?word={{text:Hanzi}}&ct=17&pn=0&tn=ikaslist&rn=10&lm=0&fr=search"
+            >Baidu</a
+        >
+        <a href="http://image.baidu.com/i?ie=utf-8&word={{text:Hanzi}}"
+            >Images</a
+        >
+    </div>
+</div>
+
+<script type="text/javascript">
+    (function () {
+        // 1. Deck Name Formatting
+        var deckName = "{{Deck}}";
+        document.querySelector(".deck-display").innerHTML = deckName.replace(
+            /::/g,
+            " › ",
+        );
+
+        // 2. Stroke Order Logic
+        var charString = "{{Hanzi}}";
+        var characters = charString.replace(/<[^>]*>/g, "").split("");
+        var isNight = document.body.classList.contains("nightMode");
+
+        var strokeCol = isNight ? "#93a1a1" : "#586e75";
+        var outlineCol = isNight ? "#002b36" : "#eee8d5";
+        var radicalCol = isNight ? "#d33682" : "#268bd2";
+
+        function renderHanzi() {
+            if (typeof HanziWriter === "undefined") return;
+
+            var targetDiv = document.getElementById("target");
+            targetDiv.innerHTML = "";
+
+            // Show the card only if we are actually rendering
+            document.getElementById("strokeCard").style.display = "block";
+
+            characters.forEach(function (char) {
+                var writer = HanziWriter.create("target", char, {
+                    width: 100,
+                    height: 100,
+                    padding: 5,
+                    showOutline: true,
+                    strokeAnimationSpeed: 1.2,
+                    delayBetweenStrokes: 150,
+                    strokeColor: strokeCol,
+                    outlineColor: outlineCol,
+                    radicalColor: radicalCol,
+                    charDataLoader: function (char, onComplete) {
+                        var xhr = new XMLHttpRequest();
+                        xhr.open("GET", "_" + char + ".json", true);
+                        xhr.onreadystatechange = function () {
+                            if (xhr.readyState === 4) {
+                                if (xhr.status === 200) {
+                                    onComplete(JSON.parse(xhr.responseText));
+                                } else {
+                                    // If a specific character file is missing, hide the card
+                                    document.getElementById(
+                                        "strokeCard",
+                                    ).style.display = "none";
+                                }
+                            }
+                        };
+                        xhr.send();
+                    },
+                });
+                writer.loopCharacterAnimation();
+            });
+        }
+
+        if (typeof HanziWriter === "undefined") {
+            var js = document.createElement("script");
+            js.src = "_hanzi-writer.min.js";
+            js.onload = renderHanzi;
+            js.onerror = function () {
+                document.getElementById("strokeCard").style.display = "none";
+            };
+            document.body.appendChild(js);
+        } else {
+            renderHanzi();
+        }
+    })();
+</script>
