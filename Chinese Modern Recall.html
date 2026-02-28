@@ -8,40 +8,70 @@
 
   <div class="info-card">
     <div class="primary-meaning">{{English}}</div>
-
     <div class="silhouette-container">{{Silhouette}}</div>
 
     <div class="hint-wrapper">
-      <button id="customHintBtn" class="hint-pill">💡 Show Pinyin</button>
-      <div id="pinyinContent" style="display: none">{{Pinyin}}</div>
+      <div id="pinyinData" style="display: none">{{Pinyin}}</div>
+
+      <div class="button-row">
+        <button id="pinyinBtn" class="hint-pill">💡 Pinyin</button>
+        {{#Notes}}
+        <button id="notesBtn" class="hint-pill">📝 Notes</button>
+        {{/Notes}}
+      </div>
     </div>
   </div>
+
+  {{#Notes}}
+  <div
+    id="notesContent"
+    class="notes-card"
+    style="display: none; margin-top: 10px"
+  >
+    <div class="section-label" style="margin-bottom: 8px">Notes</div>
+    <div class="notes-content">{{Notes}}</div>
+  </div>
+  {{/Notes}}
 </div>
 
 <script>
   (function () {
     // 1. Deck Formatting
-    var deckName = "{{Deck}}";
-    document.querySelector(".deck-display").innerHTML = deckName.replace(
-      /::/g,
-      " › ",
-    );
+    var deckDisplay = document.querySelector(".deck-display");
+    if (deckDisplay) deckDisplay.innerHTML = "{{Deck}}".replace(/::/g, " › ");
 
-    // 2. Custom Toggle Logic
-    var btn = document.getElementById("customHintBtn");
-    var content = document.getElementById("pinyinContent");
-    var isShown = false;
+    // 2. Pinyin Toggle
+    var pBtn = document.getElementById("pinyinBtn");
+    var pData = document.getElementById("pinyinData");
 
-    if (btn && content) {
-      btn.onclick = function () {
-        if (!isShown) {
-          btn.innerText = content.innerText;
-          btn.classList.add("hint-revealed");
-          isShown = true;
+    if (pBtn && pData) {
+      var originalText = "💡 Pinyin";
+      var cleanPinyin = pData.innerText.trim();
+
+      pBtn.onclick = function () {
+        if (!this.classList.contains("hint-revealed")) {
+          this.innerText = cleanPinyin;
+          this.classList.add("hint-revealed");
         } else {
-          btn.innerText = "💡 Show Pinyin";
-          btn.classList.remove("hint-revealed");
-          isShown = false;
+          this.innerText = originalText;
+          this.classList.remove("hint-revealed");
+        }
+      };
+    }
+
+    // 3. Notes Toggle (Shows/Hides the separate card)
+    var nBtn = document.getElementById("notesBtn");
+    var nContent = document.getElementById("notesContent");
+    if (nBtn && nContent) {
+      nBtn.onclick = function () {
+        if (nContent.style.display === "none") {
+          nContent.style.display = "block";
+          this.classList.add("hint-revealed");
+          // Smooth scroll to notes if they are long
+          nContent.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        } else {
+          nContent.style.display = "none";
+          this.classList.remove("hint-revealed");
         }
       };
     }
