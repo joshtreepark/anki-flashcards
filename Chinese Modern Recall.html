@@ -98,17 +98,23 @@
         <span class="details-label">Simplified</span>
         <div>{{Simplified}}</div>
       </div>
-      {{/Simplified}} {{#Traditional}}
+      {{/Simplified}}
+      <!-- 2 -->
+      {{#Traditional}}
       <div class="grid-item">
         <span class="details-label">Traditional</span>
         <div>{{Traditional}}</div>
       </div>
-      {{/Traditional}} {{#Classifier}}
+      {{/Traditional}}
+      <!-- 3 -->
+      {{#Classifier}}
       <div class="grid-item">
         <span class="details-label">Classifier</span>
         <div>{{Classifier}}</div>
       </div>
-      {{/Classifier}} {{#Also Written}}
+      {{/Classifier}}
+      <!-- 4 -->
+      {{#Also Written}}
       <div class="grid-item">
         <span class="details-label">Also written</span>
         <div>{{Also Written}}</div>
@@ -122,7 +128,9 @@
     <div class="section-label" style="margin-bottom: 8px">Notes</div>
     <div class="notes-content">{{Notes}}</div>
   </div>
-  {{/Notes}} {{#Usage}}
+  {{/Notes}}
+  <!-- Example Sentences -->
+  {{#Usage}}
   <details class="example-sentence">
     <summary class="section-label">Show Example Sentences</summary>
     <div class="example-content">{{Usage}}</div>

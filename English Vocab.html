@@ -1,0 +1,39 @@
+<!-- Frontside -->
+
+<div class="container">
+  <div class="word-card">
+    <div class="word">{{Word}}</div>
+    {{#Pronunciation}}
+    <div class="ipa">{{Pronunciation}}</div>
+    {{/Pronunciation}}
+  </div>
+</div>
+
+<!-- Backside -->
+
+<div class="container">
+  {{FrontSide}}
+
+  <div class="details-card">
+    {{#Hint}}
+    <div class="hint-badge">{{Hint}}</div>
+    {{/Hint}}
+
+    <div class="definition">{{Definition}}</div>
+
+    {{#Sentence}}
+    <div class="divider"></div>
+    <div class="sentence-box">{{Sentence}}</div>
+    {{/Sentence}}
+    <!-- Lower Part of Card -->
+    {{#Derivatives}}
+    <div class="derivatives-footer">
+      <span class="label">Family:</span> {{Derivatives}}
+    </div>
+    {{/Derivatives}}
+  </div>
+
+  {{#Audio}}
+  <div class="audio-player">{{Audio}}</div>
+  {{/Audio}}
+</div>

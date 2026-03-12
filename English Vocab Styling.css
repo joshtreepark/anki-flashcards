@@ -1,0 +1,208 @@
+/* Solarized Theme Variables */
+.card {
+  --base03: #002b36; /* Darkest */
+  --base02: #073642; /* Dark */
+  --base01: #586e75;
+  --base00: #657b83;
+  --base0:  #839496;
+  --base1:  #93a1a1;
+  --base2:  #eee8d5; /* Light */
+  --base3:  #fdf6e3; /* Lightest */
+  
+  --yellow:  #b58900;
+  --orange:  #cb4b16;
+  --blue:    #268bd2;
+  --cyan:    #2aa198;
+  --violet:  #6c71c4;
+
+  /* LIGHT MODE MAPPING */
+  --bg-page: var(--base2);
+  --bg-word: var(--base02);    /* Dark word box */
+  --bg-details: var(--base3);  /* Very light details box */
+  --text-main: var(--base01);
+  --text-muted: var(--base00);
+  --word-text: var(--base3);
+  --ipa-color: var(--cyan);
+  --accent: var(--blue);
+  --hr-line: var(--cyan);
+
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 19px;
+  text-align: center;
+  color: var(--text-main);
+  background-color: var(--bg-page);
+  margin: 0;
+  padding: 15px;
+}
+
+.nightMode {
+  --bg-page: #001e26;
+  --bg-word: var(--base03);
+  --bg-details: var(--base02);
+  --text-main: var(--base0);
+  --text-muted: var(--base1);
+  --word-text: var(--base1);
+  --ipa-color: var(--yellow);
+  --accent: var(--blue);
+  --hr-line: var(--cyan);
+}
+
+.container {
+  max-width: 550px;
+  margin: 0 auto;
+}
+
+/* TOP BOX */
+.word-card {
+  background-color: var(--bg-word);
+  color: var(--word-text);
+  padding: 30px 20px;
+  border-radius: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  margin-bottom: 12px;
+}
+
+.word {
+  font-size: 2.4rem;
+  font-weight: 800;
+}
+
+.ipa {
+  font-size: 1.1rem;
+  margin-top: 8px;
+  color: var(--ipa-color);
+}
+
+/* BOTTOM BOX */
+.details-card {
+  background-color: var(--bg-details);
+  padding: 25px 20px;
+  border-radius: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  border: 1px solid rgba(0,0,0,0.1); /* Subtle border for definition */
+}
+
+.hint-badge {
+  display: inline-block;
+  background: var(--violet);
+  color: #fff;
+  padding: 3px 12px;
+  border-radius: 50px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.definition {
+  font-size: 1.15rem;
+  line-height: 1.5;
+  color: var(--text-main);
+}
+
+/* Updated Visible Divider */
+.divider {
+  height: 3px;
+  background-color: var(--hr-line);
+  width: 35%;
+  margin: 18px auto;
+  border-radius: 10px;
+  opacity: 0.5;
+}
+
+/* Updated Smaller Sentence Box */
+.sentence-box {
+  font-style: italic;
+  font-family: "Georgia", serif;
+  color: var(--text-muted);
+  line-height: 1.4;
+  font-size: 0.8rem;
+  padding: 0 5px;
+}
+
+.sentence-box b, .sentence-box strong {
+  color: var(--orange);
+  font-style: normal;
+}
+
+.derivatives-footer {
+  margin-top: 20px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--hr-line); /* Different texture than the main divider */
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-align: left; /* Often easier to read lists when left-aligned */
+}
+
+/* --- Custom Pill Audio Button --- */
+
+.audio-player {
+  margin-top: 25px;
+  display: flex;
+  justify-content: center;
+}
+
+.replay-button {
+  position: relative;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 100px;
+  height: 42px;
+  border-radius: 25px;
+  
+  background-color: var(--cyan);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease-in-out;
+}
+
+/* Hide Default Anki SVG Icon */
+.replay-button svg {
+  display: none;
+}
+
+/* Custom Play Triangle */
+.replay-button::before {
+  content: "";
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-left: 11px solid var(--base3); /* Light cream color */
+  margin-right: 8px; /* Space between triangle and text */
+}
+
+.replay-button::after {
+  content: "AUDIO";
+  color: var(--base3);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.nightMode .replay-button {
+  background-color: var(--cyan); /* Cyan pops better in Dark Mode */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.nightMode .replay-button::before {
+  border-left-color: var(--base03); /* Darker triangle for contrast */
+}
+
+.nightMode .replay-button::after {
+  color: var(--base03); /* Darker text for contrast */
+}
+
+/* --- Interaction Effects --- */
+.replay-button:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+}
+
+.replay-button:active {
+  transform: translateY(1px) scale(0.98);
+}
