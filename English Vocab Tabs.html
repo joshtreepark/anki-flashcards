@@ -1,0 +1,100 @@
+<!-- A new card style with pull down tabs for more information -->
+
+<!-- Frontside -->
+
+<div class="container">
+  <div class="word-card">
+    <div class="word">{{Word}}</div>
+    {{#Pronunciation}}
+    <div class="ipa">{{Pronunciation}}</div>
+    {{/Pronunciation}}
+  </div>
+</div>
+
+<!-- Backside -->
+
+<div class="container">
+  {{FrontSide}}
+
+  <div class="details-card">
+    <div class="tabs-wrapper">
+      {{#Notes}}
+      <div
+        id="notes-tab"
+        class="tab-item tab-notes"
+        data-label="Notes"
+        onclick="toggleSheet('notes')"
+      >
+        Notes
+      </div>
+      {{/Notes}} {{#Derivatives}}
+      <div
+        id="family-tab"
+        class="tab-item tab-family"
+        data-label="Family"
+        onclick="toggleSheet('family')"
+      >
+        Family
+      </div>
+      {{/Derivatives}}
+    </div>
+
+    {{#Notes}}
+    <div id="notes-expanded" class="expanded-sheet sheet-notes">
+      <div class="sheet-content">{{Notes}}</div>
+      <div class="protruding-close tab-notes" onclick="toggleSheet('notes')">
+        ↑↑
+      </div>
+    </div>
+    {{/Notes}} {{#Derivatives}}
+    <div id="family-expanded" class="expanded-sheet sheet-family">
+      <div class="sheet-content">{{Derivatives}}</div>
+      <div class="protruding-close tab-family" onclick="toggleSheet('family')">
+        ↑↑
+      </div>
+    </div>
+    {{/Derivatives}}
+
+    <div class="main-content-area">
+      {{#Hint}}
+      <div class="hint-bracket">[ {{Hint}} ]</div>
+      {{/Hint}}
+
+      <div class="definition">{{Definition}}</div>
+
+      {{#Sentence}}
+      <div class="divider"></div>
+      <div class="sentence-box">{{Sentence}}</div>
+      {{/Sentence}}
+    </div>
+  </div>
+
+  {{#Audio}}
+  <div class="audio-player">{{Audio}}</div>
+  {{/Audio}}
+</div>
+
+<script>
+  function toggleSheet(type) {
+    const targetSheet = document.getElementById(type + "-expanded");
+    const allSheets = document.querySelectorAll(".expanded-sheet");
+    const allTabs = document.querySelectorAll(".tab-item");
+
+    const isActive = targetSheet.classList.contains("active");
+
+    // 1. Reset everything first
+    allSheets.forEach((s) => s.classList.remove("active"));
+    allTabs.forEach((t) => {
+      t.innerHTML = t.getAttribute("data-label");
+      t.classList.remove("tab-active");
+    });
+
+    // 2. If we weren't closing, open the new one
+    if (!isActive) {
+      targetSheet.classList.add("active");
+      const activeTab = document.getElementById(type + "-tab");
+      activeTab.innerHTML = "↑↑";
+      activeTab.classList.add("tab-active");
+    }
+  }
+</script>

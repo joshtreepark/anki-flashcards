@@ -1,0 +1,302 @@
+/* Solarized Theme Variables */
+.card {
+  --base03: #002b36;
+  --base02: #073642;
+  --base01: #586e75;
+  --base00: #657b83;
+  --base0: #839496;
+  --base1: #93a1a1;
+  --base2: #eee8d5;
+  --base3: #fdf6e3;
+  --yellow: #b58900;
+  --orange: #cb4b16;
+  --blue: #268bd2;
+  --cyan: #2aa198;
+  --violet: #6c71c4;
+
+  --bg-page: var(--base2);
+  --bg-word: var(--base02);
+  --bg-details: var(--base3);
+  --text-main: var(--base01);
+  --text-muted: var(--base00);
+  --word-text: var(--base3);
+  --ipa-color: var(--cyan);
+  --hr-line: var(--cyan);
+
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
+  font-size: 19px;
+  text-align: center;
+  color: var(--text-main);
+  background-color: var(--bg-page);
+  margin: 0;
+  padding: 15px;
+}
+
+.nightMode {
+  --bg-page: #001e26;
+  --bg-word: var(--base03);
+  --bg-details: var(--base02);
+  --text-main: var(--base0);
+  --text-muted: var(--base1);
+  --word-text: var(--base1);
+  --ipa-color: var(--yellow);
+}
+
+.container {
+  max-width: 550px;
+  margin: 0 auto;
+}
+
+/* --- TOP CARD --- */
+.word-card {
+  background-color: var(--bg-word);
+  color: var(--word-text);
+  padding: 30px 20px;
+  border-radius: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  margin-bottom: 35px;
+}
+
+.word {
+  font-size: 2.4rem;
+  font-weight: 800;
+}
+.ipa {
+  font-size: 1.1rem;
+  margin-top: 8px;
+  color: var(--ipa-color);
+}
+
+/* --- BOTTOM CARD --- */
+.details-card {
+  position: relative;
+  background-color: var(--bg-details);
+  padding: 30px 20px 25px 20px;
+  border-radius: 0 20px 20px 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+
+/* --- PERSISTENT TABS --- */
+.tabs-wrapper {
+  position: absolute;
+  top: -28px;
+  left: -1px;
+  display: flex;
+  gap: 5px;
+  z-index: 50;
+}
+
+.tab-item {
+  background-color: var(--bg-details);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: none;
+  width: 70px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-radius: 8px 8px 0 0;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.tab-notes {
+  color: var(--cyan);
+  border-top: 3px solid var(--cyan);
+}
+.tab-family {
+  color: var(--orange);
+  border-top: 3px solid var(--orange);
+}
+
+.tab-active {
+  background-color: var(--bg-page);
+  font-size: 0.8rem;
+}
+
+/* --- EXPANDED SHEETS --- */
+.expanded-sheet {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 40;
+  background-color: var(--bg-details);
+  border-radius: 0 0 20px 20px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+
+  /* Smoother Transition: Quintic Out curve */
+  animation: foldDown 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.expanded-sheet.active {
+  display: block;
+}
+
+.sheet-content {
+  padding: 35px 25px 15px 25px;
+  font-size: 0.95rem;
+  color: var(--text-main);
+  line-height: 1.6;
+}
+
+.sheet-notes {
+  border-top: 4px solid var(--cyan);
+}
+.sheet-family {
+  border-top: 4px solid var(--orange);
+}
+
+/* Protruding Close Tab */
+.protruding-close {
+  width: 45px;
+  height: 20px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 900;
+  border-radius: 0 0 8px 8px;
+  cursor: pointer;
+  color: white !important;
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.protruding-close.tab-notes {
+  background-color: var(--cyan);
+}
+.protruding-close.tab-family {
+  background-color: var(--orange);
+}
+
+/* Refined Keyframes for "Glide" effect */
+@keyframes foldDown {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+    opacity: 0;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    transform: scaleY(1);
+    transform-origin: top;
+    opacity: 1;
+  }
+}
+
+/* --- MAIN CONTENT AREA --- */
+.main-content-area {
+  padding-top: 10px;
+}
+
+.hint-bracket {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--violet);
+  letter-spacing: 1.5px;
+  margin-bottom: 12px;
+}
+
+.definition {
+  font-size: 1.15rem;
+  line-height: 1.5;
+  color: var(--text-main);
+}
+.divider {
+  height: 3px;
+  background-color: var(--hr-line);
+  width: 35%;
+  margin: 20px auto;
+  border-radius: 10px;
+  opacity: 0.3;
+}
+.sentence-box {
+  font-style: italic;
+  font-family: "Georgia", serif;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  text-align: center;
+}
+.sentence-box b,
+.sentence-box strong {
+  color: var(--orange);
+}
+
+/* --- AUDIO BUTTON --- */
+.audio-player {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.replay-button {
+  position: relative;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 110px;
+  height: 44px;
+  border-radius: 25px;
+  background-color: var(--cyan);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease-in-out;
+}
+
+.replay-button svg {
+  display: none;
+}
+
+.replay-button::before {
+  content: "";
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-left: 11px solid var(--base3);
+  margin-right: 8px;
+}
+
+.replay-button::after {
+  content: "AUDIO";
+  color: var(--base3);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.replay-button:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.replay-button:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+/* Night Mode Audio Overrides */
+.nightMode .replay-button::before {
+  border-left-color: var(--base03);
+}
+
+.nightMode .replay-button::after {
+  color: var(--base03);
+}
